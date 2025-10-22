@@ -3,6 +3,7 @@ package org.example;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -16,8 +17,8 @@ class ShopServiceTest {
     void setUp() {
 
         // CREATE PRODUCTS
-        Product toothbrush = new Product("1", "Toothbrush", 2.99);
-        Product shampoo = new Product("2", "Shampoo", 4.99);
+        Product toothbrush = new Product("1", "Toothbrush", new BigDecimal("2.99"));
+        Product shampoo = new Product("2", "Shampoo", new BigDecimal("4.99"));
 
         // BUNDLE TO MAP
         Map<Product, Integer> products = new HashMap<>();
@@ -38,15 +39,15 @@ class ShopServiceTest {
     @Test
     void getOrderTotalPrice_shouldReturn_7_98() {
         // GIVEN
-        double totalPrice = testShop.getOrderTotalPrice("1");
+        BigDecimal totalPrice = testShop.getOrderTotalPrice("1");
 
-        assertThat(totalPrice).isEqualTo(7.98);
+        assertThat(totalPrice).isEqualTo(new BigDecimal("7.98"));
     }
 
     @Test
     void addOrder_shouldReturnTrue_whenOrderAddedAndExistsInMap() {
         // GIVEN
-        Product soap = new Product("1", "Soap", 0.99);
+        Product soap = new Product("1", "Soap", new BigDecimal("0.99"));
         Order newOrder = new Order(Map.of(soap, 1), "2");
 
         // WHEN

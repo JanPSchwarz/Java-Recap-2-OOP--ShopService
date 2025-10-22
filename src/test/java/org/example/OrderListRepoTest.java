@@ -3,6 +3,7 @@ package org.example;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -15,7 +16,7 @@ class OrderListRepoTest {
     @BeforeEach
     void setUp() {
         // ADD PRODUCT TO ORDER AND ORDER TO A LIST
-        Product toothbrush = new Product("1", "Toothbrush", 1.99);
+        Product toothbrush = new Product("1", "Toothbrush", new BigDecimal("1.99"));
         Order exampleOrder = new Order(Map.of(toothbrush, 1), "1");
         List<Order> orderList = new ArrayList<>();
         orderList.add(exampleOrder);
@@ -27,7 +28,7 @@ class OrderListRepoTest {
     @Test
     void findOrder_shouldReturnTrue_whenCalledWithExistingOrderID() {
         // GIVEN
-        Product toothbrush = new Product("1", "Toothbrush", 1.99);
+        Product toothbrush = new Product("1", "Toothbrush", new BigDecimal("1.99"));
         Order exampleOrder = new Order(Map.of(toothbrush, 1), "1");
 
         String orderId = "1";
@@ -52,7 +53,7 @@ class OrderListRepoTest {
     @Test
     void addOrder_shouldReturnTrue_whenAddedOrderExists() {
         // GIVEN
-        Product shampoo = new Product("2", "Shampoo", 1.99);
+        Product shampoo = new Product("2", "Shampoo", new BigDecimal("1.99"));
         Order exampleOrder = new Order(Map.of(shampoo, 1), "2");
 
         // WHEN
@@ -77,7 +78,7 @@ class OrderListRepoTest {
     @Test
     void getAllOrders() {
         // GIVEN
-        Product shampoo = new Product("2", "shampoo", 2.99);
+        Product shampoo = new Product("2", "shampoo", new BigDecimal("2.99"));
         Order exampleOrder = new Order(Map.of(shampoo, 1), "2");
         orderListRepo.addOrder(exampleOrder);
 

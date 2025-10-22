@@ -3,6 +3,7 @@ package org.example;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,7 +16,7 @@ class OrderMapRepoTest {
 
     @BeforeEach
     void setUp() {
-        Product toothBrush = new Product("1", "Tooth Brush", 1.99);
+        Product toothBrush = new Product("1", "Tooth Brush", new BigDecimal("1.99"));
         Order exampleOrder = new Order(Map.of(toothBrush, 1), "1");
 
         Map<String, Order> ordersMap = new HashMap<>();
@@ -27,7 +28,7 @@ class OrderMapRepoTest {
     @Test
     void addOrder_returnsTrue_whenOrderAdded() {
         // GIVEN
-        Product shampoo = new Product("1", "Shampoo", 1.99);
+        Product shampoo = new Product("1", "Shampoo", new BigDecimal("1.99"));
         Order exampleOrder = new Order(Map.of(shampoo, 1), "2");
 
         // WHEN
@@ -51,7 +52,7 @@ class OrderMapRepoTest {
     @Test
     void getSingleOrder_shouldReturnOrder_whenCalledWithExistingOrder() {
         // GIVEN
-        Product toothBrush = new Product("1", "Tooth Brush", 1.99);
+        Product toothBrush = new Product("1", "Tooth Brush", new BigDecimal("1.99"));
         Order exampleOrder = new Order(Map.of(toothBrush, 1), "1");
         String orderId = "1";
 

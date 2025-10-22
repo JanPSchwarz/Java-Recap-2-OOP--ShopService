@@ -1,5 +1,6 @@
 package org.example;
 
+import java.math.BigDecimal;
 import java.util.Map;
 import java.util.Objects;
 
@@ -43,13 +44,13 @@ public class ShopService {
     }
 
     // METHODS
-    public double getOrderTotalPrice(String orderId) {
+    public BigDecimal getOrderTotalPrice(String orderId) {
         Order order = orderMap.getSingleOrder(orderId);
         if (!Objects.isNull(order)) {
             return order.getTotalPrice();
         } else {
             System.out.println("Order Not Found");
-            return 0;
+            return BigDecimal.ZERO;
         }
     }
 

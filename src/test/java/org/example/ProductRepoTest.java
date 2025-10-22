@@ -3,6 +3,7 @@ package org.example;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.math.BigDecimal;
 import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -15,14 +16,14 @@ class ProductRepoTest {
     @BeforeEach
     void setUp() {
         productRepo = new ProductRepo();
-        Product product1 = new Product("1", "Product 1", 1.99);
+        Product product1 = new Product("1", "Product 1", new BigDecimal("1.99"));
         productRepo.addProduct(product1);
     }
 
     @Test
     void addProduct_shouldReturnTrue_whenProductAdded() {
         // GIVEN
-        Product product2 = new Product("2", "Product 2", 1.99);
+        Product product2 = new Product("2", "Product 2", new BigDecimal("1.99"));
 
         // WHEN
         productRepo.addProduct(product2);
@@ -35,7 +36,7 @@ class ProductRepoTest {
 
     @Test
     void getSingleProduct_shouldReturnProduct_whenProductExists() {
-        Product expectedProduct = new Product("1", "Product 1", 1.99);
+        Product expectedProduct = new Product("1", "Product 1", new BigDecimal("1.99"));
         Product existingProduct = productRepo.getSingleProduct("1");
         assertEquals(existingProduct, expectedProduct);
     }
@@ -64,7 +65,7 @@ class ProductRepoTest {
     @Test
     void deleteProduct_shouldReturnFalse_whenProductDeleted() {
         // GIVEN
-        Product deletedProduct = new Product("1", "Product 1", 1.99);
+        Product deletedProduct = new Product("1", "Product 1", new BigDecimal("1.99"));
         Map<String, Product> productsMap = productRepo.getProducts();
 
         // WHEN
@@ -78,7 +79,7 @@ class ProductRepoTest {
     void getAllProducts_shouldReturnTrue_whenProductMapComplete() {
         // GIVEN
         Map<String, Product> productsMap = productRepo.getProducts();
-        Product existingProduct = new Product("1", "Product 1", 1.99);
+        Product existingProduct = new Product("1", "Product 1", new BigDecimal("1.99"));
 
         // THEN
         assertThat(productsMap)
