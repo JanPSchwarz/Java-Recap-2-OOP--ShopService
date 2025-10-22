@@ -28,8 +28,6 @@ public class Main {
         Product nonExistingProduct = new Product("5", "Non Existing Product", 12.99);
         Order notPossibleOrder = new Order(nonExistingProduct, "1", 1);
         drugStore.addOrder(notPossibleOrder);
-
-
     }
 
 }
