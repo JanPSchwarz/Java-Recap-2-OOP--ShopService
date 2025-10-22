@@ -25,10 +25,13 @@ class ShopServiceTest {
         products.put(shampoo, 1);
 
         Order exampleOrder = new Order(products, "1");
-        OrderMapRepo orderMapRepo = new OrderMapRepo();
-        orderMapRepo.addOrder(exampleOrder);
+        Map<String, Order> orderMap = new HashMap<>();
+        orderMap.put("1", exampleOrder);
 
-        // CREATE SHOP WITH ORDER-MAP
+        // CREATE ORDER-MAP-REPO WITH CONSTRUCTOR-PARAMS MAP
+        OrderMapRepo orderMapRepo = new OrderMapRepo(orderMap);
+
+        // CREATE SHOP WITH ORDER-MAP-REPO
         testShop = new ShopService(orderMapRepo);
     }
 
