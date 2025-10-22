@@ -15,7 +15,17 @@ public class OrderListRepo implements OrderRepoInterface {
     public OrderListRepo() {
     }
 
-    // METHODS
+    // OWN METHODS
+    Order findOrder(String orderId) {
+        for (Order order : orders) {
+            if (order.orderId().equals(orderId)) {
+                return order;
+            }
+        }
+        return null;
+    }
+
+    // INTERFACE METHODS
     @Override
     public void addOrder(Order order) {
         orders.add(order);
@@ -34,15 +44,6 @@ public class OrderListRepo implements OrderRepoInterface {
     @Override
     public List<Order> getAllOrders() {
         return orders;
-    }
-
-    Order findOrder(String orderId) {
-        for (Order order : orders) {
-            if (order.orderId().equals(orderId)) {
-                return order;
-            }
-        }
-        return null;
     }
 
 

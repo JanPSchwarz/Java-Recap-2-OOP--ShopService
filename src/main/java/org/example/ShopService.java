@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class ShopService implements OrderRepoInterface {
@@ -25,16 +26,39 @@ public class ShopService implements OrderRepoInterface {
 
     // METHODS
 
+    public double getOrderTotalPrice(String orderId) {
+        Order order = orderMap.getSingleOrder(orderId);
+        if (!Objects.isNull(order)) {
+            return order.getTotalPrice();
+        } else {
+            System.out.println("Order Not Found");
+            return 0;
+        }
+    }
+
+    // INTERFACE METHODS
     @Override
     public void addOrder(Order order) {
-        Product orderedProduct = order.product();
-        if (productRepo.productExists(orderedProduct.id())) {
-            orderMap.addOrder(order);
-            orderList.addOrder(order);
-            System.out.println("\nShop-Service: Order added");
-        } else {
-            System.out.println("Product not found");
+        Map<Integer, Product> orderedProductsMap = order.productsWithQuantity();
+
+        for (Map.Entry<Integer, Product> productEntry : orderedProductsMap.entrySet()) {
+            Product product = productEntry.getValue();
+            boolean productExists = productRepo.productExists(product.id());
+            if (!productExists) {
+                System.out.println("Product with id " + product.id() + " does not exist");
+                System.out.println("Order has not been added");
+                return;
+            }
         }
+
+        System.out.println("\nOrder has been added:");
+        for (Map.Entry<Integer, Product> productEntry : order.productsWithQuantity().entrySet()) {
+            Product product = productEntry.getValue();
+            Integer quantity = productEntry.getKey();
+            System.out.println(quantity + "x " + product.name());
+        }
+        System.out.println("\nTotal price is: " + order.getTotalPrice());
+
     }
 
     @Override

@@ -1,5 +1,7 @@
 package org.example;
 
+import java.util.Map;
+
 public class Main {
     public static void main(String[] args) {
 
@@ -19,14 +21,14 @@ public class Main {
         // IMPLEMENT SHOP WITH CREATED PRODUCT-REPO
         ShopService drugStore = new ShopService(productRepo);
 
-        Order toothBrushOrder = new Order(toothBrush, "1", 1);
+        Order toothBrushOrder = new Order(Map.of(1, toothBrush), "1");
 
         drugStore.addOrder(toothBrushOrder);
 
         drugStore.getAllOrders().forEach(System.out::println);
 
         Product nonExistingProduct = new Product("5", "Non Existing Product", 12.99);
-        Order notPossibleOrder = new Order(nonExistingProduct, "1", 1);
+        Order notPossibleOrder = new Order(Map.of(1, nonExistingProduct), "1");
         drugStore.addOrder(notPossibleOrder);
     }
 
