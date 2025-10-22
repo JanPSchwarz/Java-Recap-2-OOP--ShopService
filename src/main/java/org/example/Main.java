@@ -25,8 +25,11 @@ public class Main {
 
         drugStore.addOrder(toothBrushOrder);
 
-        drugStore.getAllOrders().forEach(System.out::println);
+        drugStore.getOrderMap().printAllOrders();
+        drugStore.getOrderList().printAllOrders();
 
+
+        // NON EXISTING PRODUCT RETURNS NULL AND SOUT WITH INFO
         Product nonExistingProduct = new Product("5", "Non Existing Product", 12.99);
         Order notPossibleOrder = new Order(Map.of(1, nonExistingProduct), "1");
         drugStore.addOrder(notPossibleOrder);

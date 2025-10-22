@@ -2,6 +2,7 @@ package org.example;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 public class OrderListRepo implements OrderRepoInterface {
@@ -46,6 +47,18 @@ public class OrderListRepo implements OrderRepoInterface {
         return orders;
     }
 
+    @Override
+    public void printAllOrders() {
+        System.out.println("\nAll Orders in OrderListRepo:");
+        for (Order order : orders) {
+            Map<Integer, Product> actualOrders = order.productsWithQuantity();
+            for (Map.Entry<Integer, Product> entry : actualOrders.entrySet()) {
+                int quantity = entry.getKey();
+                String name = entry.getValue().name();
+                System.out.println(quantity + "x " + name);
+            }
+        }
+    }
 
     // GETTERS AND SETTERS
     public List<Order> getOrders() {

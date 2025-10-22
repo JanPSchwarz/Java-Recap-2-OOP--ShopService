@@ -1,14 +1,16 @@
 package org.example;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-public class ShopService implements OrderRepoInterface {
+public class ShopService {
     private OrderListRepo orderList = new OrderListRepo();
     private OrderMapRepo orderMap = new OrderMapRepo();
+
     private ProductRepo productRepo = new ProductRepo();
 
+
+    // CONSTRUCTORS
     public ShopService(OrderMapRepo orderMap) {
         this.orderMap = orderMap;
     }
@@ -21,11 +23,26 @@ public class ShopService implements OrderRepoInterface {
         this.productRepo = productRepo;
     }
 
+    public ShopService(OrderListRepo orderList, ProductRepo productRepo) {
+        this.orderList = orderList;
+        this.productRepo = productRepo;
+    }
+
+    public ShopService(OrderMapRepo orderMap, ProductRepo productRepo) {
+        this.orderMap = orderMap;
+        this.productRepo = productRepo;
+    }
+
+    public ShopService(OrderListRepo orderList, OrderMapRepo orderMap, ProductRepo productRepo) {
+        this.orderList = orderList;
+        this.orderMap = orderMap;
+        this.productRepo = productRepo;
+    }
+
     public ShopService() {
     }
 
     // METHODS
-
     public double getOrderTotalPrice(String orderId) {
         Order order = orderMap.getSingleOrder(orderId);
         if (!Objects.isNull(order)) {
@@ -36,8 +53,6 @@ public class ShopService implements OrderRepoInterface {
         }
     }
 
-    // INTERFACE METHODS
-    @Override
     public void addOrder(Order order) {
         Map<Integer, Product> orderedProductsMap = order.productsWithQuantity();
 
@@ -45,11 +60,15 @@ public class ShopService implements OrderRepoInterface {
             Product product = productEntry.getValue();
             boolean productExists = productRepo.productExists(product.id());
             if (!productExists) {
-                System.out.println("Product with id " + product.id() + " does not exist");
+                System.out.println("\nProduct with id " + product.id() + " does not exist");
                 System.out.println("Order has not been added");
-                return;
+                return; // EARLY RETURN IF ONE PRODUCT DOES NOT EXIST
             }
         }
+
+        // ADDING ACTUAL ORDER
+        orderMap.addOrder(order);
+        orderList.addOrder(order);
 
         System.out.println("\nOrder has been added:");
         for (Map.Entry<Integer, Product> productEntry : order.productsWithQuantity().entrySet()) {
@@ -59,23 +78,6 @@ public class ShopService implements OrderRepoInterface {
         }
         System.out.println("\nTotal price is: " + order.getTotalPrice());
 
-    }
-
-    @Override
-    public void deleteOrder(String orderId) {
-        orderMap.deleteOrder(orderId);
-        orderList.deleteOrder(orderId);
-        System.out.println("\nShop-Service: Order deleted");
-    }
-
-    @Override
-    public Order getSingleOrder(String orderId) {
-        return orderMap.getSingleOrder(orderId);
-    }
-
-    @Override
-    public List<Order> getAllOrders() {
-        return orderList.getAllOrders();
     }
 
     // GETTERS AND SETTERS
