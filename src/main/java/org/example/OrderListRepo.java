@@ -51,10 +51,10 @@ public class OrderListRepo implements OrderRepoInterface {
     public void printAllOrders() {
         System.out.println("\nAll Orders in OrderListRepo:");
         for (Order order : orders) {
-            Map<Integer, Product> actualOrders = order.productsWithQuantity();
-            for (Map.Entry<Integer, Product> entry : actualOrders.entrySet()) {
-                int quantity = entry.getKey();
-                String name = entry.getValue().name();
+            Map<Product, Integer> actualOrders = order.productsWithQuantity();
+            for (Map.Entry<Product, Integer> entry : actualOrders.entrySet()) {
+                int quantity = entry.getValue();
+                String name = entry.getKey().name();
                 System.out.println(quantity + "x " + name);
             }
         }

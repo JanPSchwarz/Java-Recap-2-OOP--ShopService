@@ -21,7 +21,7 @@ public class Main {
         // IMPLEMENT SHOP WITH CREATED PRODUCT-REPO
         ShopService drugStore = new ShopService(productRepo);
 
-        Order toothBrushOrder = new Order(Map.of(1, toothBrush), "1");
+        Order toothBrushOrder = new Order(Map.of(toothBrush, 1), "1");
 
         drugStore.addOrder(toothBrushOrder);
 
@@ -31,7 +31,7 @@ public class Main {
 
         // NON EXISTING PRODUCT RETURNS NULL AND SOUT WITH INFO
         Product nonExistingProduct = new Product("5", "Non Existing Product", 12.99);
-        Order notPossibleOrder = new Order(Map.of(1, nonExistingProduct), "1");
+        Order notPossibleOrder = new Order(Map.of(nonExistingProduct, 1), "1");
         drugStore.addOrder(notPossibleOrder);
     }
 

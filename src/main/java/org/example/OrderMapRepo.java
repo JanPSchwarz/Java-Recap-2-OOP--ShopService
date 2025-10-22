@@ -38,9 +38,9 @@ public class OrderMapRepo implements OrderRepoInterface {
     public void printAllOrders() {
         System.out.println("All Orders in Map:");
         for (Map.Entry<String, Order> order : orders.entrySet()) {
-            Map<Integer, Product> actualOrder = order.getValue().productsWithQuantity();
-            for (Map.Entry<Integer, Product> productWithQuantity : actualOrder.entrySet()) {
-                System.out.println(productWithQuantity.getKey() + "x " + productWithQuantity.getValue().name());
+            Map<Product, Integer> actualOrder = order.getValue().productsWithQuantity();
+            for (Map.Entry<Product, Integer> productWithQuantity : actualOrder.entrySet()) {
+                System.out.println(productWithQuantity.getValue() + "x " + productWithQuantity.getKey().name());
             }
 
         }

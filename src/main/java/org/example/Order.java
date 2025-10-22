@@ -2,11 +2,11 @@ package org.example;
 
 import java.util.Map;
 
-public record Order(Map<Integer, Product> productsWithQuantity, String orderId) {
+public record Order(Map<Product, Integer> productsWithQuantity, String orderId) {
     public double getTotalPrice() {
         double totalPrice = 0;
-        for (Map.Entry<Integer, Product> product : productsWithQuantity.entrySet()) {
-            double price = product.getValue().price() * product.getKey();
+        for (Map.Entry<Product, Integer> product : productsWithQuantity.entrySet()) {
+            double price = product.getKey().price() * product.getValue();
             totalPrice += price;
         }
         return totalPrice;

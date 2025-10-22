@@ -54,10 +54,10 @@ public class ShopService {
     }
 
     public void addOrder(Order order) {
-        Map<Integer, Product> orderedProductsMap = order.productsWithQuantity();
+        Map<Product, Integer> orderedProductsMap = order.productsWithQuantity();
 
-        for (Map.Entry<Integer, Product> productEntry : orderedProductsMap.entrySet()) {
-            Product product = productEntry.getValue();
+        for (Map.Entry<Product, Integer> productEntry : orderedProductsMap.entrySet()) {
+            Product product = productEntry.getKey();
             boolean productExists = productRepo.productExists(product.id());
             if (!productExists) {
                 System.out.println("\nProduct with id " + product.id() + " does not exist");
@@ -71,9 +71,9 @@ public class ShopService {
         orderList.addOrder(order);
 
         System.out.println("\nOrder has been added:");
-        for (Map.Entry<Integer, Product> productEntry : order.productsWithQuantity().entrySet()) {
-            Product product = productEntry.getValue();
-            Integer quantity = productEntry.getKey();
+        for (Map.Entry<Product, Integer> productEntry : order.productsWithQuantity().entrySet()) {
+            Product product = productEntry.getKey();
+            Integer quantity = productEntry.getValue();
             System.out.println(quantity + "x " + product.name());
         }
         System.out.println("\nTotal price is: " + order.getTotalPrice());
